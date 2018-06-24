@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">{{this.$store.state.city}}</div>
+            <div class="button">{{this.currentCity}}</div>
           </div>
         </div>
       </div>
@@ -45,6 +45,7 @@
 
 <script>
 import Bscroll from 'better-scroll'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'CityList',
@@ -58,6 +59,11 @@ export default {
 
     }
   },
+  computed: {
+    ...mapState({
+      currentCity: 'city'
+    })
+  },
   watch: {
     // 监听 Alphabet 中传过来的letter，如有变化，则滚动区域自动滚动到对应元素上
     letter () {
@@ -69,9 +75,11 @@ export default {
   },
   methods: {
     handleCityClick (city) {
-      this.$store.commit('changeCity', city) // 将参数city传给vuex中的mutations中的changeCity函数
+      // this.$store.commit('changeCity', city) // 将参数city传给vuex中的mutations中的changeCity函数
+      this.changeCity(city)
       this.$router.push('/') // 页面跳转 参考：https://router.vuejs.org/zh/guide/essentials/navigation.html
-    }
+    },
+    ...mapMutations(['changeCity'])
   },
   mounted () {
     this.scroll = new Bscroll(this.$refs.wrapper)
