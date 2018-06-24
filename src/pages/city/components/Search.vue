@@ -9,6 +9,7 @@
           class="search-item border-bottom"
           v-for="item of list"
           :key=item.id
+          @click="handleCityClick(item.name)"
         >
           {{item.name}}
         </li>
@@ -54,6 +55,12 @@ export default {
         }
         this.list = result
       }, 100)
+    }
+  },
+  methods: {
+    handleCityClick (city) {
+      this.$store.commit('changeCity', city) // 将参数city传给vuex中的mutations中的changeCity函数
+      this.$router.push('/') // 页面跳转 参考：https://router.vuejs.org/zh/guide/essentials/navigation.html
     }
   },
   mounted () {

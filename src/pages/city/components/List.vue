@@ -5,14 +5,19 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">上海</div>
+            <div class="button">{{this.$store.state.city}}</div>
           </div>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
-          <div class="button-wrapper" v-for="item of hot" :key="item.id">
+          <div
+            class="button-wrapper"
+            v-for="item of hot"
+            :key="item.id"
+            @click="handleCityClick(item.name)"
+          >
             <div class="button">{{item.name}}</div>
           </div>
         </div>
@@ -24,7 +29,12 @@
         :ref="index"
       >
         <div class="title border-topbottom">{{index}}</div>
-        <div class="item-list" v-for="innerItem of item" :key=innerItem.id>
+        <div
+          class="item-list"
+          v-for="innerItem of item"
+          :key=innerItem.id
+          @click="handleCityClick(innerItem.name)"
+          >
           <div class="item border-bottom"> {{innerItem.name}} </div>
         </div>
       </div>
@@ -55,6 +65,12 @@ export default {
         const element = this.$refs[this.letter][0] // 获取对应字母的ref
         this.scroll.scrollToElement(element) // 利用better-scroll插件 滚动到指定元素element
       }
+    }
+  },
+  methods: {
+    handleCityClick (city) {
+      this.$store.commit('changeCity', city) // 将参数city传给vuex中的mutations中的changeCity函数
+      this.$router.push('/') // 页面跳转 参考：https://router.vuejs.org/zh/guide/essentials/navigation.html
     }
   },
   mounted () {
