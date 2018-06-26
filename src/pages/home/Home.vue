@@ -18,6 +18,7 @@ import HomeIcons from './components/Icons'
 import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/Weekend'
 import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
   components: {
@@ -32,12 +33,17 @@ export default {
       swiperList: [],
       iconList: [],
       recommendList: [],
-      weekendList: []
+      weekendList: [],
+      lastCity: ''
     }
+  },
+  computed: {
+    ...mapState(['city'])
   },
   methods: {
     getHomeInfo () {
-      axios.get('/api/index.json').then(this.getHomeInfoSucc)
+      this.lastCity = this.city
+      axios.get('/api/index.json?city=' + this.city).then(this.getHomeInfoSucc)
     },
     getHomeInfoSucc (res) {
       console.log(res)
@@ -52,7 +58,18 @@ export default {
     }
   },
   mounted () {
+    console.log('mounted')
     this.getHomeInfo()
+  },
+  activated () { // 当路由发送变化时（即进入home.vue组件时），就会执行钩子函数 activaed
+    if (this.lastCity !== this.city) { // 每次进入home组件，检查当前城市city是否变化，若变化，则执行axios请求
+      this.lastCity = this.city
+      this.getHomeInfo()
+    }
+    console.log('activated')
+  },
+  deactivated () { // 当路由发送变化时（即离开home.vue组件时），就会执行钩子函数 deactivaed
+    console.log('deactivated')
   }
 }
 </script>
