@@ -1,4 +1,4 @@
-# quanr demo (start use vuex)
+# quanr demo
 
 > A Vue.js project
 
