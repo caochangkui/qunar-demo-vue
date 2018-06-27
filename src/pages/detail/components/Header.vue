@@ -49,6 +49,10 @@ export default {
   },
   activated () {
     window.addEventListener('scroll', this.handleScroll)
+    this.showAbs = true // 防止再次进入页面时不生效
+    this.opacityStyle = {
+      opacity: 0
+    }
   },
   deactivated () {
     window.removeEventListener('scroll', this.handleScroll)
