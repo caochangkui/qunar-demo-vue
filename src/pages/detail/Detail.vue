@@ -1,15 +1,17 @@
 <template>
-  <div class="banner">
-    <detail-banner
-      :sightName="sightName"
-      :bannerImg="bannerImg"
-      :bannerImgs="gallaryImgs"
-    ></detail-banner>
-    <detail-header></detail-header>
-    <div class="content">
-      <detail-list :list="list"></detail-list>
+  <transition name="slide">
+    <div class="banner">
+      <detail-banner
+        :sightName="sightName"
+        :bannerImg="bannerImg"
+        :bannerImgs="gallaryImgs"
+      ></detail-banner>
+      <detail-header></detail-header>
+      <div class="content">
+        <detail-list :list="list"></detail-list>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -71,6 +73,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .content
-    height: 50rem
+  .banner
+    background #eee
+    .content
+      height: 50rem
+
+  .slide-enter-active,.slide-leave-active {
+    transition: all 0.3s;
+  }
+  .slide-enter,.slide-leave-to {
+    transform: translate3d(100%, 0, 0);
+  }
 </style>
