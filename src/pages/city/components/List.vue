@@ -14,7 +14,7 @@
         <div class="button-list">
           <div
             class="button-wrapper"
-            v-for="item of hot"
+            v-for="item in hot"
             :key="item.id"
             @click="handleCityClick(item.name)"
           >
@@ -24,14 +24,14 @@
       </div>
       <div
         class="area"
-        v-for="(item, index) of cities"
+        v-for="(item, index) in cities"
         :key="index"
         :ref="index"
       >
         <div class="title border-topbottom">{{index}}</div>
         <div
           class="item-list"
-          v-for="innerItem of item"
+          v-for="innerItem in item"
           :key=innerItem.id
           @click="handleCityClick(innerItem.name)"
           >
